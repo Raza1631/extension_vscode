@@ -1,0 +1,119 @@
+{
+	"name": "toolset",
+	"displayName": "toolset",
+	"description": "",
+	"version": "0.0.5",
+	"engines": {
+		"vscode": "^1.43.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"icon": "media/toolset.png",
+	"main": "./extension.js",
+	"publisher": "2658553345",
+	"contributes": {
+		"commands": [
+			{
+				"command": "toolset.cson2json",
+				"title": "cson2json",
+				"description": "convert cson to json"
+			},
+			{
+				"command": "toolset.json2cson",
+				"title": "json2cson",
+				"description": "convert json to cson"
+			},
+			{
+				"command": "toolset.revealFileInOS",
+				"title": "在文件资源管理器中显示",
+				"icon": {
+					"dark": "./media/open-dark.svg",
+					"light": "./media/open-light.svg"
+				}
+			},
+			{
+				"command": "toolset.createComponent",
+				"title": "创建vue组件"
+			},
+			{
+				"command": "toolset.log",
+				"title": "打印当前选中命令"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "toolset.log",
+				"when": "editorFocus",
+				"win": "ctrl+shift+l",
+				"linux": "ctrl+shift+l",
+				"mac": "command+shift+l"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorFocus",
+					"command": "toolset.revealFileInOS",
+					"group": "_modification"
+				},
+				{
+					"when": "editorFocus",
+					"command": "toolset.createComponent",
+					"group": "_modification"
+				},
+				{
+					"when": "editorFocus",
+					"command": "toolset.log",
+					"group": "_modification"
+				}
+			],
+			"editor/title": [
+				{
+					"when": "editorFocus",
+					"command": "toolset.revealFileInOS",
+					"group": "navigation"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "toolset.createComponent",
+					"group": "_modification",
+					"icon": "media/paw-outline.svg"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"lint": "eslint .  --fix",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js",
+		"pack": "vsce package"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.43.0",
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.11.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.1.2",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.3.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:over58/my-toolset.git"
+	},
+	"dependencies": {
+		"cson": "^7.19.0"
+	},
+	"__metadata": {
+		"id": "3eefffb8-c962-4fa2-93be-77f5ddc34636",
+		"publisherId": "03e45c18-63c5-441c-839f-74724615d55f",
+		"publisherDisplayName": "2658553345"
+	}
+}

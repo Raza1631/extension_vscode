@@ -1,0 +1,207 @@
+{
+	"name": "ponicode",
+	"displayName": "Ponicode",
+	"description": "Ponicode is a quick and easy AI-powered solution for Javascript unit testing.",
+	"version": "0.42.4",
+	"versionTimestamp": "0",
+	"versionInstrumenter": "0.0.1-18",
+	"icon": "favicon.ico",
+	"publisher": "Ponicode",
+	"engines": {
+		"vscode": "^1.37.1"
+	},
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ponicode"
+	},
+	"homepage": "https://ponicode.com",
+	"categories": [
+		"Other",
+		"Extension Packs",
+		"Machine Learning",
+		"Data Science",
+		"Education",
+		"Visualization",
+		"Snippets",
+		"Programming Languages"
+	],
+	"keywords": [
+		"unit testing",
+		"JavaScript",
+		"coverage",
+		"jest",
+		"Python"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./dist/main.js",
+	"rootEndpoint": "https://api.ponicode.com/juice/v1",
+	"platformEndpoint": "https://app.ponicode.com",
+	"contributes": {
+		"configuration": {
+			"title": "Ponicode",
+			"properties": {
+				"ponicode.token": {
+					"type": "string",
+					"default": null,
+					"description": "Specifies the API key used for authentication. If empty, you will be prompted to log in to Ponicode.com."
+				},
+				"ponicode.watchMode": {
+					"type": "boolean",
+					"default": false,
+					"description": "Specifies whether test cases are automatically run with Jest to retrieve pass or fail information"
+				},
+				"ponicode.typescript.runSourceFile": {
+					"type": "string",
+					"default": "Use .js file if exists and is up-to-date",
+					"description": "Specifies how to run Typescript tests",
+					"enum": [
+						"Only use .js file",
+						"Only use .ts file",
+						"Use .js file if exists and is up-to-date"
+					]
+				},
+				"ponicode.nodePath": {
+					"type": "string",
+					"default": null,
+					"description": "Node path for the test runner and tasks. If absent, node is looked up in PATH."
+				},
+				"webview.experimental.useExternalEndpoint": {
+					"type": "boolean",
+					"description": "Work around VS Code issue #83188"
+				},
+				"ponicode.testSettings.testLocation.locationType": {
+					"type": "string",
+					"markdownDescription": "Specifies where new Ponicode-generated unit tests will be written. Can be customised further at `#ponicode.testSettings.testLocation.path#`. **PLEASE ONLY MODIFY THIS SETTING IN \"WORKSPACE\", NOT IN \"USER\".**",
+					"enum": [
+						"Same folder as source file",
+						"In folder __tests__ at workspace root",
+						"Custom"
+					],
+					"scope": "machine-overridable"
+				},
+				"ponicode.testSettings.testLocation.path": {
+					"type": "string",
+					"default": "{rootDir}/{filePath}/{fileName}.test.js",
+					"//pattern": "^./{filename}.[a-z]*.[a-z]*$",
+					"//patternErrorMessage": "Pattern does not match.",
+					"markdownDescription": "Path where new Ponicode-generated unit tests will be written. Use forward slashes. Allowed keywords: `{rootDir}`, `{filePath}`, `{fileName}`, `{ext}`. Limitations apply. For more info, consult the [docs](https://ponicode.com/docs/using-ponicode/config/test-location). **PLEASE ONLY MODIFY THIS SETTING IN \"WORKSPACE\", NOT IN \"USER\".**",
+					"scope": "machine-overridable"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "ponicode.openInteractiveView",
+				"title": "Ponicode: Unit Test"
+			},
+			{
+				"command": "ponicode.flashTest",
+				"title": "Ponicode: Flash Test"
+			},
+			{
+				"command": "ponicode.mock",
+				"title": "Ponicode: Mock"
+			},
+			{
+				"command": "ponicode.instrumenter.update",
+				"title": "Ponicode: Update Ponicode npm package"
+			},
+			{
+				"command": "ponicode.instrumenter.run",
+				"title": "Run with Ponicode"
+			},
+			{
+				"command": "ponicode.updateExtension",
+				"title": "Ponicode: Update Ponicode extension"
+			},
+			{
+				"command": "ponicode.feedback",
+				"title": "Ponicode: Send feedback"
+			},
+			{
+				"command": "ponicode.start",
+				"title": "Ponicode: Start"
+			},
+			{
+				"command": "ponicode.stop",
+				"title": "Ponicode: Stop"
+			},
+			{
+				"command": "ponicode.gettingStarted",
+				"title": "Ponicode: Getting Started"
+			},
+			{
+				"command": "ponicode.signIn",
+				"title": "Ponicode: Sign In"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "ponicode.openInteractiveView",
+				"key": "ctrl+t",
+				"mac": "cmd+t",
+				"when//": "editorTextFocus"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "resourceLangId == javascript || resourceLangId == javascriptreact || resourceLangId == typescript || (resourceLangId == typescriptreact && ponicode:supportTsx)",
+					"command": "ponicode.openInteractiveView",
+					"group": "2_ponicode@1"
+				},
+				{
+					"when": "resourceLangId == python",
+					"command": "ponicode.openInteractiveView",
+					"group": "2_ponicode@1"
+				},
+				{
+					"when": "resourceLangId == javascript || resourceLangId == javascriptreact || resourceLangId == typescript || (resourceLangId == typescriptreact && ponicode:supportTsx)",
+					"command": "ponicode.flashTest",
+					"group": "2_ponicode@2"
+				},
+				{
+					"when": "resourceLangId == javascript && ponicode:hasLastActiveWebview",
+					"command": "ponicode.mock",
+					"group": "2_ponicode@3"
+				},
+				{
+					"when": "resourceLangId == typescript && ponicode:hasLastActiveWebview",
+					"command": "ponicode.mock",
+					"group": "2_ponicode@3"
+				},
+				{
+					"when": "resourceLangId == python && ponicode:hasLastActiveWebview",
+					"command": "ponicode.mock",
+					"group": "2_ponicode@3"
+				}
+			],
+			"editor/title": [
+				{
+					"when": "resourceLangId == javascript || resourceLangId == javascriptreact || resourceLangId == typescript",
+					"command": "ponicode.instrumenter.run",
+					"group": "0_ponicode@1"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"build": "gulp",
+		"watch": "gulp watch",
+		"test": "gulp test",
+		"test:tty": "gulp test:tty",
+		"vsix": "gulp vsix",
+		"prettier": "npm run prettier:package --prefix ../../ packages/vscode-extension",
+		"vscode:prepublish": "gulp ensure-packageable",
+		"//vscode:prepublish": "export NAME=$(jq -r '.name + \"-\" + .version' package.json) && ln -nfs \"$NAME.vsix\" \"$NAME.zip\" && unzip -l \"$NAME.vsix\" | grep -v node_modules | (if grep -q src; then false; fi)"
+	},
+	"__metadata": {
+		"id": "3d127111-d7f9-4812-8cbf-ba2a41a7a04a",
+		"publisherId": "b0b0c4c1-6005-4bca-ab74-64c490df1d61",
+		"publisherDisplayName": "Ponicode",
+		"installedTimestamp": 1625125266406
+	}
+}
